@@ -1,0 +1,308 @@
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>House Price Estimator</title>
+    {% load static %}
+</head>
+<style>
+    .banner {
+        font-family: 'Poppins', sans-serif;
+        margin: 0;
+        padding: 0;
+        display: flex;
+        height: 120vh;
+        /* Adjust as needed */
+        background-color: #F4F4F4;
+        width: 100%;
+        height: 100vh;
+        background-image: linear-gradient(rgba(0, 0, 0, 0.75), rgba(0, 0, 0, 0.75)),
+        url('{% static "/bg.jpg" %}');
+        background-size: cover;
+        background-position: center;
+    }
+</style>
+
+<body class="banner">
+
+
+    <div style="width: 33%;">
+    </div>
+    <div class="form-side"
+        style="width: 50%; background-color: rgba(22, 33, 62, 0); display: flex; justify-content: center; align-items: center; padding: 50px;">
+        <div class="estimator"
+            style="width: 100%; background-color: rgba(22, 33, 62, 0);	 max-width: 500px; padding: 40px; border-radius: 20px; box-shadow: 0 4px 10px rgba(0,.4)">
+            <center>
+                <h2 class="text-center mb-4"
+                    style="font-size: 32px; font-weight: bold; margin-bottom: 32px; color: #EFE9F4; text-align: center;">
+                    PROPERTY INFORMATION</h2>
+            </center>
+            <table>
+                <form onsubmit="return validateForm()" id="property-info-form">
+                    {% csrf_token %}
+                    <tr>
+                        <td>
+                            <div class="row mb-3">
+                                <div class="col-sm-3">
+                                    <label for="bed-room" class="form-label"
+                                        style="display: block; margin-bottom: 8px; color: white;font-size:20px;">Bed
+                                        Room</label>
+                                    <input type="number" id="bed-room" name="bed-room"
+                                        style="width: 200px; padding: 15px; border: 2px solid #0F3460; border-radius: 10px; font-size: 18px; background: #EFE9F4; color: #1A1A2E;"
+                                        placeholder="Enter No. of Bedrooms" oninput="validateInput(this)">
+                                </div>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="col-sm-3">
+                                <label for="extra-space" class="form-label"
+                                    style="display: block; margin-bottom: 8px; font-size:20px;color: white;">Extra
+                                    Space</label>
+                                <input type="number" class="form-control" id="extra-space" name="extra-space"
+                                    style="width: 200px; padding: 15px; border: 2px solid #0F3460; border-radius: 10px; font-size: 18px; background: #EFE9F4; color: #1A1A2E;"
+                                    placeholder="Enter No. of Extra Spaces" oninput="validateInput(this)">
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div class="col-sm-3">
+                                <label for="wash-room" class="form-label"
+                                    style="display: block; margin-bottom: 8px; font-size:20px;color: white;">Wash
+                                    Room</label>
+                                <input type="number" class="form-control" id="wash-room" name="wash-room"
+                                    style="width: 200px; padding: 15px; border: 2px solid #0F3460; border-radius: 10px; font-size: 18px; background: #EFE9F4; color: #1A1A2E;"
+                                    placeholder="Enter No. of Washroom" oninput="validateInput(this)">
+                            </div>
+                        </td>
+                        <td>
+                            <div class="col-sm-3">
+                                <label for="kitchen" class="form-label"
+                                    style="display: block; margin-bottom: 8px; font-size:20px;color: white;">Kitchen</label>
+                                <input type="number" class="form-control" id="kitchen" name="kitchen"
+                                    style="width: 200px; padding: 15px; border: 2px solid #0F3460; border-radius: 10px; font-size: 18px; background: #EFE9F4; color: #1A1A2E;"
+                                    placeholder="Enter No. of Kitchen" oninput="validateInput(this)">
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div class="col-sm-3">
+                                <label for="family-room" class="form-label"
+                                    style="display: block; margin-bottom: 8px; font-size:20px;color: white;">Family Room
+                                    (Y/N)</label>
+                                <select class="form-select" id="family-room" name="family-room"
+                                    style="width: 233px; padding: 15px; border: 2px solid #0F3460; border-radius: 10px; font-size: 18px; background: #EFE9F4; color: #1A1A2E;"
+                                    required>
+                                    <option value="" selected disabled>Select Family Room</option>
+                                    <option value="1">Yes</option>
+                                    <option value="0">No</option>
+                                </select>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="col-sm-3">
+                                <label for="community" class="form-label"
+                                    style="display: block; margin-bottom: 8px; font-size:20px;color: white;">Community</label>
+                                <select class="form-select" id="community" name="community"
+                                    style="width: 233px; padding: 15px; border: 2px solid #0F3460; border-radius: 10px; font-size: 18px; background: #EFE9F4; color: #1A1A2E;"
+                                    required>
+                                    <option value="" selected disabled>Select Community</option>
+                                    <option value="1256">Heart Lake</option>
+                                    <option value="2766">Bramalea N</option>
+                                    <option value="3497">Toronto Go</option>
+                                    <option value="5013">Northwest</option>
+                                    <option value="5202">Gore Industrial</option>
+                                    <option value="7538">Avondale</option>
+                                    <option value="9104">Fletcher's Creek</option>
+                                    <option value="10819">Northwood</option>
+                                    <option value="10872">Snelgrove</option>
+                                    <option value="10874">Downtown Brampton</option>
+                                    <option value="10884">Brampton E</option>
+                                    <option value="12950">Southgate</option>
+                                    <option value="13702">Westgate</option>
+                                    <option value="13726">Brampton S</option>
+                                    <option value="14527">Central Park</option>
+                                    <option value="14691">Brampton W</option>
+                                    <option value="14823">Vales of Caclemore</option>
+                                    <option value="15499">Northgate</option>
+                                    <option value="16721">Brampton N</option>
+                                    <option value="21339">Queen Street</option>
+                                    <option value="22537">Madoc</option>
+                                    <option value="32590">Credit Valley</option>
+                                    <option value="75599">Sandringham</option>
+                                </select>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div class="col-sm-3">
+                                <label for="garage-type" class="form-label"
+                                    style="display: block; margin-bottom: 8px; font-size:20px;color: white;">Garage
+                                    Type</label>
+                                <select class="form-select" id="garage-type" name="garage-type"
+                                    style="width: 233px; padding: 15px; border: 2px solid #0F3460; border-radius: 10px; font-size: 18px; background: #EFE9F4; color: #1A1A2E;"
+                                    required>
+                                    <option value="" selected disabled>Select Garage Type</option>
+                                    <option value="913">Double Car</option>
+                                    <option value="522">Single Car</option>
+                                </select>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="col-sm-3">
+                                <label for="style" class="form-label"
+                                    style="display: block; margin-bottom: 8px; font-size:20px;color: white;">Style</label>
+                                <select class="form-select" id="style" name="style"
+                                    style="width: 233px; padding: 15px; border: 2px solid #0F3460; border-radius: 10px; font-size: 18px; background: #EFE9F4; color: #1A1A2E;"
+                                    required>
+                                    <option value="" selected disabled>Select Style of House</option>
+                                    <option value="45">Bungalow</option>
+                                    <option value="67">Bungalow Raised</option>
+                                    <option value="3">2 1/2 Storey</option>
+                                    <option value="1222">2-Storey</option>
+                                    <option value="4">3-Storey</option>
+                                    <option value="60">Backsplit</option>
+                                    <option value="41">Sidesplit</option>
+                                    <option value="3">Bungaloft</option>
+                                </select>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="2">
+                            <div class="row mb-3">
+                                <div class="col-sm-6">
+                                    <label for="list-price" class="form-label"
+                                        style="display: block; margin-bottom: 8px; font-size:20px;color: white;">List
+                                        Price</label>
+                                    <input type="number" class="form-control" id="list-price" name="list-price"
+                                        style="width: 430px; padding: 15px; border: 2px solid #0F3460; border-radius: 10px; font-size: 18px; background: #EFE9F4; color: #1A1A2E; margin-bottom: 15px;"
+                                        placeholder="Enter List Price" oninput="validateInput(this)">
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="2">
+                            <center>
+                                <div>
+                                    <button type="submit" class="btn-estimate"><span></span>Submit </button>
+                                </div>
+                            </center>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="2">
+                            <div id="predicted-sold-price-container" class="predicted-sold-price-container">
+                                <center>
+                                    <label for="predicted-sold-price" class="form-label"
+                                        style="font-size: 32px;display: block; font-weight: bold; margin-bottom: 10px; color: #EFE9F4; text-align: center;color: white;">Predicted
+                                        Sold Price</label>
+                                </center>
+                                <input type="text" class="form-control" id="predicted-sold-price" disabled
+                                    style="width: 430px; padding: 15px; border: 2px solid #0F3460; border-radius: 10px; font-size: 18px; background: #EFE9F4; color: #1A1A2E;"
+                                    placeholder="The Predicted Sold Price will be Showed Here">
+                            </div>
+                        </td>
+                    </tr>
+                </form>
+            </table>
+        </div>
+    </div>
+    <div style="width: 33%;">
+    </div>
+    <script>
+        function validateInput(input) {
+            let value = input.value;
+            if (value <= 0) {
+                input.setCustomValidity("Please enter a value greater than zero.");
+            } else {
+                input.setCustomValidity("");
+            }
+        }
+
+        function validateForm() {
+            let bedRoom = document.getElementById('bed-room').value;
+            let extraSpace = document.getElementById('extra-space').value;
+            let washRoom = document.getElementById('wash-room').value;
+            let kitchen = document.getElementById('kitchen').value;
+            let listPrice = document.getElementById('list-price').value;
+
+            if (bedRoom <= 0 || extraSpace <= 0 || washRoom <= 0 || kitchen <= 0 || listPrice <= 0) {
+                alert("Please fill in all the mandatory fields with values greater than zero.");
+                return false;
+            }
+            return true;
+        }
+
+        document.getElementById('property-info-form').addEventListener('submit', function (event) {
+            event.preventDefault();
+            var form = this;
+            var formData = new FormData(form);
+            var csrfTokenInput = document.querySelector('input[name="csrfmiddlewaretoken"]');
+            var csrfToken = csrfTokenInput ? csrfTokenInput.value : null;
+
+            // Send a POST request to the server with form data and CSRF token
+            fetch('/prediction/', {
+                method: 'POST',
+                body: formData
+            })
+                .then(response => response.json())
+                .then(data => {
+                    // Update predicted sold price container with the returned value
+                    document.getElementById('predicted-sold-price').value = data.predicted_sold_price;
+                })
+                .catch(error => console.error('Error:', error));
+        });
+
+    </script>
+
+    <style>
+        button {
+            width: 200px;
+            padding: 15px 0;
+            text-align: center;
+            margin: 20px 10px;
+            border-radius: 25px;
+            font-weight: bold;
+            border: 2px solid #5eebdf;
+            background: transparent;
+            color: #fff;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+
+        }
+
+        span {
+            background: #5eebdf;
+            height: 100%;
+            width: 0;
+            border-radius: 25px;
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            z-index: -1;
+            transition: 0.5s;
+        }
+
+        button:hover span {
+            width: 100%;
+        }
+
+        button:hover {
+            border: none;
+        }
+
+        ::placeholder {
+            font-size: 15px;
+            color: #1A1A2E;
+        }
+    </style>
+
+</body>
+
+</html>
